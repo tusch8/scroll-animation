@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>scroll-animation</title>
+	<link rel="stylesheet" href="./css/style.css">
+	<script src="./js/script.js" defer></script>
+</head>
+
+<body>
+	<h1>スクロールし、画面内に入ったらアニメーションする</h1>
+
+	<p class="scroll">↓スクロール</p>
+
+	<h2>監視対象とアニメーションするアイテムが同じ場合</h2>
+	<p class="js-anime item" data-anime="fadeIn">フェードイン表示</p>
+	<p class="js-anime item" data-anime="fadeInUp">下から表示</p>
+	<p class="js-anime item" data-anime="fadeInDown">上から表示</p>
+	<p class="js-anime item" data-anime="fadeInLeft">左から表示</p>
+	<p class="js-anime item" data-anime="fadeInRight">右から表示</p>
+	<p class="js-anime item" data-anime="zoomIn">ズームして表示</p>
+	<p class="js-anime item" data-anime="blurIn">ぼかしから表示</p>
+	<p class="js-anime text" data-anime="bgSlide"><span>背景をスライドしてから表示</span></p>
+	<p class="js-anime js-split-text text" data-anime="fadeInText">テキストを1文字ずつフェードイン</p>
+
+	<p class="scroll">↓スクロール</p>
+
+	<h2>1行ごと時間差で表示</h2>
+	<div class="container">
+		<p class="js-anime item" data-anime="fadeIn">フェードイン表示</p>
+		<p class="js-anime item" data-anime="fadeIn" data-anime-delay="0.2">2番目に表示</p>
+		<p class="js-anime item" data-anime="fadeIn" data-anime-delay="0.4">3番目に表示</p>
+		<p class="js-anime item" data-anime="fadeIn" data-anime-delay="0.6">4番目に表示</p>
+		<p class="js-anime item" data-anime="fadeIn">フェードイン表示</p>
+		<p class="js-anime item" data-anime="fadeIn" data-anime-delay="0.2">2番目に表示</p>
+		<p class="js-anime item" data-anime="fadeIn" data-anime-delay="0.4">3番目に表示</p>
+		<p class="js-anime item" data-anime="fadeIn" data-anime-delay="0.6">4番目に表示</p>
+	</div>
+
+	<p class="scroll">↓スクロール</p>
+
+	<h2>監視対象要素の子要素を順番に表示する場合</h2>
+	<div class="js-anime box">
+		<p>監視対象のボックス</p>
+		<p class="item top" data-anime="fadeInUp">1番目に表示</p>
+		<p class="item right" data-anime="fadeInUp" data-anime-delay="0.3">2番目に表示</p>
+		<p class="item bottom" data-anime="fadeInUp" data-anime-delay="0.6">3番目に表示</p>
+		<p class="item left" data-anime="fadeInUp" data-anime-delay="0.9">4番目に表示</p>
+	</div>
+
+	<p class="scroll">↓スクロール</p>
+
+	<h2>アニメーションの速度も調整できる</h2>
+	<p class="js-anime item" data-anime="fadeInUp" data-anime-duration="0.3">早い</p>
+	<p class="js-anime item" data-anime="fadeInUp" data-anime-duration="3">ゆっくり</p>
+
+	<div class="blank"></div>
+
+</body>
+
+</html>
