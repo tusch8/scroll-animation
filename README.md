@@ -6,4 +6,4 @@ IntersectionObserver APIを使用したスクロールに合わせたアニメ�
 wow.jsっぽくdurationとdelayの速度を指定できるようにした
 
 ## デモ
-https://inaro8.github.io/scroll-animation/
+https://tusch8.github.io/scroll-animation/
