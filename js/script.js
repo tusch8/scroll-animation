@@ -1,6 +1,10 @@
-const scrollAnimation = () => {
-	const targets = document.querySelectorAll('.js-anime'); // 監視対象
-	const foundClass = "is-found"; // 画面内に入ったとき、アニメーションさせるアイテムにつけるクラス
+
+(function () {
+
+	const TARGET_SEL = '[data-anime]';
+	const FOUND_CLASS = 'is-found';
+
+	const targets = document.querySelectorAll(`${TARGET_SEL}`);
 
 	if (!targets.length) {
 		return;
@@ -17,15 +21,21 @@ const scrollAnimation = () => {
 			if (entry.isIntersecting) {
 
 				// 監視対象とアニメーションするアイテムが同じ場合
-				if (entry.target.dataset.anime) {
-					entry.target.classList.add(foundClass);
+				if (entry.target.dataset.anime.trim() !== '') {
+					entry.target.classList.add(FOUND_CLASS);
 				}
 
 				// 違う場合は、data-anime属性がある子要素をアニメーションさせる
+				// 監視対象にする親要素のdata-animeの値は設定しない
 				else {
-					const children = entry.target.querySelectorAll('[data-anime]');
-					Object.keys(children).forEach((key) => {
-						children[key].classList.add(foundClass);
+					const children = entry.target.querySelectorAll(`${TARGET_SEL}`);
+					Object.keys(children).forEach(key => {
+
+						// 子要素の監視をやめる
+						observer.unobserve(children[key]);
+
+						// 子要素に同時にアニメーションさせる
+						children[key].classList.add(FOUND_CLASS);
 					});
 				}
 				// アニメーションを1度きりにする場合は以下のコメントアウト外す
@@ -36,11 +46,11 @@ const scrollAnimation = () => {
 			// アニメーションを1度きりにする場合、以下のelse文はいらない
 			else {
 				if (entry.target.dataset.anime) {
-					entry.target.classList.remove(foundClass);
+					entry.target.classList.remove(FOUND_CLASS);
 				} else {
-					const founds = document.querySelectorAll('.js-anime .' + foundClass);
+					const founds = document.querySelectorAll(`${TARGET_SEL} .${FOUND_CLASS}`);
 					founds.forEach(found => {
-						found.classList.remove(foundClass);
+						found.classList.remove(FOUND_CLASS);
 					})
 				}
 			}
@@ -50,13 +60,12 @@ const scrollAnimation = () => {
 	targets.forEach(target => {
 		observer.observe(target);
 	});
+}());
 
-}
-scrollAnimation();
 
 
 // テキストを1文字ずつspanで囲む関数
-const splitTextFunc = () => {
+(function () {
 	const splitTexts = document.querySelectorAll('.js-split-text');
 
 	if (!splitTexts.length) {
@@ -68,5 +77,4 @@ const splitTextFunc = () => {
 		const wrappedText = textArray.map(text => `<span>${text}</span>`).join(''); // spanで囲んで再度くっつける
 		splitText.innerHTML = wrappedText; // 元のテキストをspanで囲んだテキストに置き換える
 	})
-}
-splitTextFunc();
+}());
