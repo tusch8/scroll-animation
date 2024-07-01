@@ -169,7 +169,7 @@
 }
 
 @media (max-width: 767px) {
-	.js-anime[data-anime] {
+	[data-anime] {
 		transition-delay: 0s;
 	}
 }
