@@ -1,8 +1,6 @@
-
 (function () {
-
-	const TARGET_SEL = '[data-anime]';
-	const FOUND_CLASS = 'is-found';
+	const TARGET_SEL = "[data-anime]";
+	const FOUND_CLASS = "is-found";
 
 	const targets = document.querySelectorAll(`${TARGET_SEL}`);
 
@@ -17,11 +15,10 @@
 	};
 
 	const observer = new IntersectionObserver((entries, observer) => {
-		entries.forEach(entry => {
+		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
-
 				// 監視対象とアニメーションするアイテムが同じ場合
-				if (entry.target.dataset.anime.trim() !== '') {
+				if (entry.target.dataset.anime.trim() !== "") {
 					entry.target.classList.add(FOUND_CLASS);
 				}
 
@@ -29,8 +26,7 @@
 				// 監視対象にする親要素のdata-animeの値は設定しない
 				else {
 					const children = entry.target.querySelectorAll(`${TARGET_SEL}`);
-					Object.keys(children).forEach(key => {
-
+					Object.keys(children).forEach((key) => {
 						// 子要素の監視をやめる
 						observer.unobserve(children[key]);
 
@@ -48,33 +44,35 @@
 				if (entry.target.dataset.anime) {
 					entry.target.classList.remove(FOUND_CLASS);
 				} else {
-					const founds = document.querySelectorAll(`${TARGET_SEL} .${FOUND_CLASS}`);
-					founds.forEach(found => {
+					const founds = document.querySelectorAll(
+						`${TARGET_SEL} .${FOUND_CLASS}`
+					);
+					founds.forEach((found) => {
 						found.classList.remove(FOUND_CLASS);
-					})
+					});
 				}
 			}
 		});
 	}, options);
 
-	targets.forEach(target => {
+	targets.forEach((target) => {
 		observer.observe(target);
 	});
-}());
-
-
+})();
 
 // テキストを1文字ずつspanで囲む関数
 (function () {
-	const splitTexts = document.querySelectorAll('.js-split-text');
+	const splitTexts = document.querySelectorAll("[data-split-text]");
 
 	if (!splitTexts.length) {
 		return;
 	}
 
-	splitTexts.forEach(splitText => {
-		const textArray = splitText.textContent.split(''); // 1文字ずつ配列にする
-		const wrappedText = textArray.map(text => `<span>${text}</span>`).join(''); // spanで囲んで再度くっつける
+	splitTexts.forEach((splitText) => {
+		const textArray = splitText.textContent.split(""); // 1文字ずつ配列にする
+		const wrappedText = textArray
+			.map((text) => `<span>${text}</span>`)
+			.join(""); // spanで囲んで再度くっつける
 		splitText.innerHTML = wrappedText; // 元のテキストをspanで囲んだテキストに置き換える
-	})
-}());
+	});
+})();

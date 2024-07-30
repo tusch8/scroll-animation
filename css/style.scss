@@ -1,3 +1,7 @@
+:root {
+	--duration: 0.6s;
+}
+
 /**
  * アニメーションのためのスタイル
  */
@@ -5,6 +9,8 @@
 // フェードイン
 [data-anime="fadeIn"] {
 	opacity: 0;
+	transition-duration: var(--duration);
+	transition-property: opacity;
 	&.is-found {
 		opacity: 1;
 	}
@@ -13,6 +19,8 @@
 // 下から
 [data-anime="fadeInUp"] {
 	opacity: 0;
+	transition-duration: var(--duration);
+	transition-property: opacity, translate;
 	translate: 0 30px;
 	&.is-found {
 		opacity: 1;
@@ -23,6 +31,8 @@
 // 上から
 [data-anime="fadeInDown"] {
 	opacity: 0;
+	transition-duration: var(--duration);
+	transition-property: opacity, translate;
 	translate: 0 -30px;
 	&.is-found {
 		opacity: 1;
@@ -33,6 +43,8 @@
 // 左から
 [data-anime="fadeInLeft"] {
 	opacity: 0;
+	transition-duration: var(--duration);
+	transition-property: opacity, translate;
 	translate: -30px 0;
 	&.is-found {
 		opacity: 1;
@@ -43,6 +55,8 @@
 // 右から
 [data-anime="fadeInRight"] {
 	opacity: 0;
+	transition-duration: var(--duration);
+	transition-property: opacity, translate;
 	translate: 30px 0;
 	&.is-found {
 		opacity: 1;
@@ -50,9 +64,23 @@
 	}
 }
 
+// 下からスライドイン
+[data-anime="slideInUp"] {
+	clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+	transition-duration: var(--duration);
+	transition-property: clip-path, translate;
+	translate: 0 30px;
+	&.is-found {
+		clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+		translate: 0;
+	}
+}
+
 // ズームイン
 [data-anime="zoomIn"] {
 	opacity: 0;
+	transition-duration: var(--duration);
+	transition-property: opacity, scale;
 	scale: 0.5;
 	&.is-found {
 		opacity: 1;
@@ -63,6 +91,8 @@
 // ぼかしから
 [data-anime="blurIn"] {
 	opacity: 0;
+	transition-duration: var(--duration);
+	transition-property: opacity, filter;
 	filter: blur(10px);
 	&.is-found {
 		opacity: 1;
@@ -120,7 +150,8 @@
 [data-anime="fadeInText"] {
 	> span {
 		opacity: 0;
-		transition: opacity 0.6s;
+		transition-duration: 0.3s;
+		transition-property: opacity;
 	}
 	&.is-found {
 		> span {
@@ -135,12 +166,37 @@
 	}
 }
 
+// 1文字ずつ下からスライドアップ
+[data-anime="slideUpText"] {
+	> span {
+		display: inline-block;
+		opacity: 0;
+		transition-duration: 0.3s;
+		transition-property: opacity, translate;
+		translate: 0 0.5em;
+	}
+	&.is-found {
+		> span {
+			opacity: 1;
+			translate: 0;
+		}
+		@for $i from 1 through 30 {
+			$j: $i * 0.07 - 0.07;
+			> span:nth-of-type(#{$i}) {
+				transition-delay: $j + s;
+			}
+		}
+	}
+}
+
 // 表示して消える
 [data-anime="fadeInOut"] {
 	opacity: 0;
+	transition-duration: var(--duration);
+	transition-property: opacity;
 	&.is-found {
 		opacity: 1;
-		animation: fadeOut 0.6s ease 2s forwards;
+		animation: fadeOut var(--duration) ease 2s forwards;
 	}
 }
 
@@ -155,8 +211,6 @@
 
 // 時間、ディレイ
 [data-anime] {
-	transition-property: opacity, translate, filter, scale;
-	transition-duration: 0.6s; // 初期値
 	@for $i from 1 through 30 {
 		$j: $i * 0.1;
 		&[data-anime-duration="#{$j}"] {
@@ -173,11 +227,6 @@
 		transition-delay: 0s;
 	}
 }
-
-
-
-
-
 
 // レイアウトのためのスタイル
 .scroll {
